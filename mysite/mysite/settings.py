@@ -25,7 +25,7 @@ SECRET_KEY = 'rzqq%*3k@n=_gz_if2(^gj4^f6t2y2su(#0ins-rsv4_33a^90'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['parv.herokuapp.com']
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
     'width': 1120,
@@ -147,6 +147,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
@@ -157,3 +161,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, "main/media")
 
 MEDIA_URL = '/media/'
+
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
